@@ -36,10 +36,10 @@
     "ssh_username": "ec2-user",
     "ssm_agent_version": "",
     "subnet_id": "",
-    "temporary_security_group_source_cidrs": null,
+    "temporary_security_group_source_cidrs": "",
     "user_data_file": null,
-    "volume_type": null,
-    "working_dir": null
+    "volume_type": "gp2",
+    "working_dir": "{{user `remote_folder`}}/worker"
   },
   "builders": [
     {
