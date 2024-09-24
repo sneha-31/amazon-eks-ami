@@ -36,7 +36,7 @@
     "security_group_id": "",
     "source_ami_filter_name": "CIS Amazon Linux 2 Kernel 5.10 Benchmark - Level 1*",
     "source_ami_id": "",
-    "source_ami_owners": "aws-marketplace",
+    "source_ami_owners": "679593333241",
     "ssh_interface": "private_ip",
     "ssh_username": "ec2-user",
     "ssm_agent_version": "",
