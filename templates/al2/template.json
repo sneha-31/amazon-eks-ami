@@ -22,7 +22,7 @@
     "docker_version": "25.0.5-1.amzn2",
     "enable_fips": "false",
     "encrypted": "false",
-    "kernel_version": "6.1.102-111.182.amzn2023",
+    "kernel_version": "",
     "kms_key_id": "",
     "kubernetes_build_date": "2024-06-11",
     "kubernetes_version": "1.29.6",
