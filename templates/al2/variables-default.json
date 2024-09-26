@@ -40,7 +40,7 @@
   "ssm_agent_version": "",
   "vpc-id":"vpc-030f08ad8846f6519",
   "subnet_id":"subnet-0665e77385dfa4c55",
-  "temporary_security_group_source_cidrs": "",
+  "temporary_security_group_source_cidrs": "192.168.134.128/25",
   "user_data_file": null,
   "volume_type": "gp2",
   "working_dir": "{{user `remote_folder`}}/worker"
