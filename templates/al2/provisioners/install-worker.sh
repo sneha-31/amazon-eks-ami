@@ -89,7 +89,7 @@ sudo mkdir -p /etc/eks/
 ################################################################################
 ### Time #######################################################################
 ################################################################################
-
+find /home/ec2-user/ -name '*.service'
 sudo mv $WORKING_DIR/configure-clocksource.service /etc/eks/configure-clocksource.service
 #sudo cp -v /etc/eks/configure-clocksource.service /etc/systemd/system/configure-clocksource.service
 
