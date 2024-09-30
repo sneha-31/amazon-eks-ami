@@ -4,7 +4,8 @@ set -o pipefail
 set -o nounset
 set -o errexit
 IFS=$'\n\t'
-export AWS_DEFAULT_OUTPUT="json"
+#export AWS_DEFAULT_OUTPUT="json"
+TEMPLATE_DIR=${TEMPLATE_DIR:-/tmp/worker}
 
 ################################################################################
 ### Validate Required Arguments ################################################
@@ -84,14 +85,33 @@ sudo package-cleanup --oldkernels --count=1 -y
 # Remove the ec2-net-utils package, if it's installed. This package interferes with the route setup on the instance.
 if yum list installed | grep ec2-net-utils; then sudo yum remove ec2-net-utils -y -q; fi
 
-sudo mkdir -p /etc/eks/
+#sudo mkdir -p /etc/eks/
 
 ################################################################################
 ### Time #######################################################################
 ################################################################################
 
-sudo mv $WORKING_DIR/configure-clocksource.service /etc/eks/configure-clocksource.service
+
+#sudo mv $WORKING_DIR/configure-clocksource.service /etc/eks/configure-clocksource.service
 #sudo cp -v /etc/eks/configure-clocksource.service /etc/systemd/system/configure-clocksource.service
+# Make sure Amazon Time Sync Service starts on boot.
+sudo chkconfig chronyd on
+
+# Make sure that chronyd syncs RTC clock to the kernel.
+cat <<EOF | sudo tee -a /etc/chrony.conf
+# This directive enables kernel synchronisation (every 11 minutes) of the
+# real-time clock. Note that it can’t be used along with the 'rtcfile' directive.
+
+rtcsync
+EOF
+
+# If current clocksource is xen, switch to tsc
+if grep --quiet xen /sys/devices/system/clocksource/clocksource0/current_clocksource &&
+  grep --quiet tsc /sys/devices/system/clocksource/clocksource0/available_clocksource; then
+    echo "tsc" | sudo tee /sys/devices/system/clocksource/clocksource0/current_clocksource
+else
+    echo "tsc as a clock source is not applicable, skipping."
+fi
 
 ################################################################################
 ### SSH ########################################################################
