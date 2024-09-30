@@ -91,17 +91,17 @@ if yum list installed | grep ec2-net-utils; then sudo yum remove ec2-net-utils -
 ### Time #######################################################################
 ################################################################################
 
-
+#find /home/ec2-user/ -name '*.service'
 #sudo mv $WORKING_DIR/configure-clocksource.service /etc/eks/configure-clocksource.service
 #sudo cp -v /etc/eks/configure-clocksource.service /etc/systemd/system/configure-clocksource.service
 # Make sure Amazon Time Sync Service starts on boot.
 sudo chkconfig chronyd on
 
 # Make sure that chronyd syncs RTC clock to the kernel.
+
 cat <<EOF | sudo tee -a /etc/chrony.conf
 # This directive enables kernel synchronisation (every 11 minutes) of the
 # real-time clock. Note that it can’t be used along with the 'rtcfile' directive.
-
 rtcsync
 EOF
 
@@ -112,6 +112,7 @@ if grep --quiet xen /sys/devices/system/clocksource/clocksource0/current_clockso
 else
     echo "tsc as a clock source is not applicable, skipping."
 fi
+
 
 ################################################################################
 ### SSH ########################################################################
