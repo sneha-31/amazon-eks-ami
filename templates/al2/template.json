@@ -25,7 +25,7 @@
   "kernel_version": "5.10.225-213.878.amzn2",
   "kms_key_id": "",
   "kubernetes_build_date": "2024-09-10",
-  "kubernetes_version": "1.28",
+  "kubernetes_version": "1.28.11",
   "iam_instance_profile": "",
   "instance_type": "m5.large",
   "launch_block_device_mappings_volume_size": "20",
