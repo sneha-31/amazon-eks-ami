@@ -129,9 +129,9 @@ if ! [[ ${ISOLATED_REGIONS} =~ $BINARY_BUCKET_REGION ]]; then
   unzip -q "${AWSCLI_DIR}/awscliv2.zip" -d ${AWSCLI_DIR}
   sudo "${AWSCLI_DIR}/aws/install" --bin-dir /bin/ --update
   export PATH=$PATH:/bin
-  export AWS_ACCESS_KEY_ID=$(echo $AWS_ACCESS_KEY_ID)
-  export AWS_SECRET_ACCESS_KEY=$(echo $AWS_SECRET_ACCESS_KEY)
-  export AWS_SESSION_TOKEN=$(echo $AWS_SESSION_TOKEN)
+  # export AWS_ACCESS_KEY_ID=$(echo $AWS_ACCESS_KEY_ID)
+  # export AWS_SECRET_ACCESS_KEY=$(echo $AWS_SECRET_ACCESS_KEY)
+  # export AWS_SESSION_TOKEN=$(echo $AWS_SESSION_TOKEN)
   
 else
   echo "Installing awscli package"
