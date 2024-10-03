@@ -24,7 +24,7 @@
   "kms_key_id": "",
   "kubernetes_build_date": "2024-07-12",
   "kubernetes_version": "1.28.11",
-  "iam_instance_profile": "",
+  "iam_instance_profile": "bastion-dev-white.k8s.local",
   "instance_type": "m5.large",
   "launch_block_device_mappings_volume_size": "20",
   "pause_container_version": "3.5",
