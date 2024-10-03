@@ -381,7 +381,7 @@ sudo chmod +x /etc/eks/max-pods-calculator.sh
 ECR_CREDENTIAL_PROVIDER_BINARY="ecr-credential-provider"
 if [[ -n "$AWS_ACCESS_KEY_ID" ]]; then
   echo "AWS cli present - using it to copy ${ECR_CREDENTIAL_PROVIDER_BINARY} from s3."
-  aws s3 cp --region $BINARY_BUCKET_REGION $S3_PATH/$ECR_CREDENTIAL_PROVIDER_BINARY .
+  sudo /bin/aws s3 cp --region $BINARY_BUCKET_REGION $S3_PATH/$ECR_CREDENTIAL_PROVIDER_BINARY .
 else
   echo "AWS cli missing - using wget to fetch ${ECR_CREDENTIAL_PROVIDER_BINARY} from s3. Note: This won't work for private bucket."
   sudo wget "$S3_URL_BASE/$ECR_CREDENTIAL_PROVIDER_BINARY"
@@ -429,7 +429,7 @@ if [[ "$CACHE_CONTAINER_IMAGES" == "true" ]] && ! [[ ${ISOLATED_REGIONS} =~ $BIN
   fi
 
   #### Cache VPC CNI images starting with the addon default version and the latest version
-  VPC_CNI_ADDON_VERSIONS=$(aws eks describe-addon-versions --addon-name vpc-cni --kubernetes-version=${K8S_MINOR_VERSION})
+  VPC_CNI_ADDON_VERSIONS=$(sudo /bin/aws eks describe-addon-versions --addon-name vpc-cni --kubernetes-version=${K8S_MINOR_VERSION})
   VPC_CNI_IMGS=()
   if [[ $(jq '.addons | length' <<< $VPC_CNI_ADDON_VERSIONS) -gt 0 ]]; then
     DEFAULT_VPC_CNI_VERSION=$(echo "${VPC_CNI_ADDON_VERSIONS}" | jq -r '.addons[] .addonVersions[] | select(.compatibilities[] .defaultVersion==true).addonVersion')
@@ -453,7 +453,7 @@ if [[ "$CACHE_CONTAINER_IMAGES" == "true" ]] && ! [[ ${ISOLATED_REGIONS} =~ $BIN
     ${VPC_CNI_IMGS[@]:-}
   )
   PULLED_IMGS=()
-  REGIONS=$(aws ec2 describe-regions --all-regions --output text --query 'Regions[].[RegionName]')
+  REGIONS=$(sudo /bin/aws ec2 describe-regions --all-regions --output text --query 'Regions[].[RegionName]')
 
   for img in "${CACHE_IMGS[@]:-}"; do
     if [ -z "${img}" ]; then continue; fi
